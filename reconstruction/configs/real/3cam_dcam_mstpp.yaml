@@ -1,0 +1,27 @@
+hyperspectral_dataset:
+  name: Doomer
+  input_cameras: ['main', 'tele', 'wide']
+  split: Doomer.json
+
+warped_gt_dir: PWCNet/
+
+pipeline:
+  name: DCAM
+  params:
+    spectral_rec_model:
+      name: MSTpp
+    optical_flow_model:
+      name: PWCNet
+
+optimizer:
+  name: Adam
+  params:
+    lr: 0.0004
+
+training:
+  checkpoint_selection: validation_best
+  patch_size: 64
+  batch_size: 32
+  monitor: MAE
+  save_every_n_epochs: 30
+  n_epochs: 10000

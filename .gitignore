@@ -1,0 +1,16 @@
+.env
+.idea
+.vscode
+*venv*
+.ipynb_checkpoints
+__pycache__
+/this.egg-info
+/research
+/*/config.yaml
+*.png
+*.jpg
+*.npy
+*.npz
+*.pdf
+/artifacts
+*abiba
