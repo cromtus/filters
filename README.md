@@ -14,8 +14,8 @@ cp .env.example .env
 Replace "`/path/to/Doomer`" in the `.env`-file with your actual root directory of Doomer.
 
 ## Inference
-To run inference in the Real-world setting, [pick a checkpoint from Google Drive](https://drive.google.com/drive/folders/15oF-hawKMtupRRSoz3KMCF0nx9vfhaqW?usp=sharing) and pass it to the `--checkpoint` argument of the `reconstruction/test.py`.
-Note that each method has 10 checkpoints, since we needed that for statistical significance.
+To run inference in the Real-world setting, [pick a checkpoint from Google Drive](https://drive.google.com/drive/folders/15oF-hawKMtupRRSoz3KMCF0nx9vfhaqW?usp=sharing) and pass it to `--checkpoint` when running `reconstruction/test.py`.
+Each method includes 10 checkpoints trained with different seeds for statistical significance.
 
 For example, if you put `DCAM_GMSTpp_Doomer_mtw_2.pth` into the root of the repo,
 ```bash
@@ -43,18 +43,31 @@ will train our DCAM + GMST++ model using multi-camera inputs.
 Structure of the dataset:
 ```
 Doomer
+├── overview
+│   ├── train
+│   │   ├── 000.jpg
+│   │   ...
+│   ├── val
+│   │   ├── 002.jpg
+│   │   ...
+│   └── test
+│       ├── 006.jpg
+│       ...
 ├── aligned
 │   ├── 000.h5
 │   ├── 001.h5
+│   ├── 002.h5
 │   ...
 └── warped
     └── PWCNet
         ├── 000.h5
         ├── 001.h5
+        ├── 002.h5
         ...
 ```
 
-Train/validation/test split is specified in `reconstruction/splits/Doomer.json`
+The `overview` directory is not used by the code and is given solely to show contents of each scene in each partition.
+The code instead relies on the split provided in `reconstruction/splits/Doomer.json`, which matches the `overview` layout.
 
 Structure of an .h5-file in the `aligned` directory:
 - `rgbs` _(3, 3, 192, 256):_ Main, Telephoto and Wide input views;
