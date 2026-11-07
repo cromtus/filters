@@ -17,12 +17,17 @@ Replace "`/path/to/Doomer`" in the `.env`-file with your actual root directory o
 To run inference in the Real-world setting, [pick a checkpoint from Google Drive](https://drive.google.com/drive/folders/15oF-hawKMtupRRSoz3KMCF0nx9vfhaqW?usp=sharing) and pass it to the `--checkpoint` argument of the `reconstruction/test.py`.
 Note that each method has 10 checkpoints, since we needed that for statistical significance.
 
-For example,
+For example, if you put `DCAM_GMSTpp_Doomer_mtw_2.pth` into the root of the repo,
 ```bash
 cd reconstruction
-python test.py --checkpoint DCAM_GMSTpp_Doomer_mtw_23_best.pth
+python test.py --checkpoint ../DCAM_GMSTpp_Doomer_mtw_2.pth
 ```
-evaluates our DCAM + GMST++ model on the test set and multi-camera input. Do not forget to prepend the file name with the full path to it.
+evaluates our DCAM + GMST++ model on the test set and writes a message to stdout ending with
+```
+Macs: 25.61G, Params: 656.50K
+       MAE       NSE       PSNR       SAM
+  0.070023  0.080963  34.860725  3.673643
+```
 
 ## Training
 To train a model, pick a config from `reconstruction/configs` and pass it to the `--config` argument of the `reconstruction/train.py`.
